@@ -193,3 +193,7 @@ cython_debug/
 /reports/*
 !/reports/.gitkeep
 !/reports/figures/
+
+# Tracking y Model Registry de MLflow (locales)
+mlflow.db
+/mlruns/
