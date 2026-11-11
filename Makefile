@@ -2,8 +2,8 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PROJECT_NAME = clase_2
-PYTHON_VERSION = 3.10
+PROJECT_NAME = env_house_pricing_a
+PYTHON_VERSION = 3.11
 PYTHON_INTERPRETER = python
 
 #################################################################################

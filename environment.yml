@@ -1,21 +1,14 @@
-name: clase_2
+name: env_house_pricing_a
 channels:
   - conda-forge
 dependencies:
-  - python=3.10
+  - python=3.11
   - pip
-  - typer
-  - loguru
-  - tqdm
-  - ipython
-  - jupyterlab
-  - matplotlib
-  - notebook
-  - numpy
-  - pandas
-  - scikit-learn
+  # Herramientas de desarrollo
+  - ipykernel
   - ruff
   - pip:
-    - python-dotenv
+    # Dependencias del proyecto (versiones fijas en requirements.txt)
+    - -r requirements.txt
     - mkdocs
     - -e .
