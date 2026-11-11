@@ -1,0 +1,114 @@
+MODEL_FEATURES:
+- GrLivArea
+- GarageArea
+- TotalBsmtSF
+- 1stFlrSF
+- YearBuilt
+- YearRemodAdd
+- GarageYrBlt
+- MasVnrArea
+- BsmtFinSF1
+- LotFrontage
+- OverallQual
+- GarageCars
+- FullBath
+- TotRmsAbvGrd
+- MSSubClass
+- Fireplaces
+- OverallCond
+- HalfBath
+- BedroomAbvGr
+- BsmtFullBath
+- Neighborhood
+- KitchenQual
+- BsmtQual
+- ExterQual
+- GarageFinish
+- FireplaceQu
+- Foundation
+- GarageType
+- HeatingQC
+- BsmtFinType1
+TARGET: SalePrice
+TARGET_TRANSFORMATION: log1p
+ID_COLUMN: Id
+VARIABLES:
+  categoricas:
+  - MSSubClass
+  - Neighborhood
+  - KitchenQual
+  - BsmtQual
+  - ExterQual
+  - GarageFinish
+  - FireplaceQu
+  - Foundation
+  - GarageType
+  - HeatingQC
+  - BsmtFinType1
+  discretas:
+  - OverallQual
+  - GarageCars
+  - FullBath
+  - TotRmsAbvGrd
+  - Fireplaces
+  - OverallCond
+  - HalfBath
+  - BedroomAbvGr
+  - BsmtFullBath
+  continuas:
+  - GrLivArea
+  - GarageArea
+  - TotalBsmtSF
+  - 1stFlrSF
+  - YearBuilt
+  - YearRemodAdd
+  - GarageYrBlt
+  - MasVnrArea
+  - BsmtFinSF1
+  - LotFrontage
+  continuas_yeo_johnson:
+  - MasVnrArea
+SPLIT:
+  test_size: 0.2
+  random_state: 42
+PREPROCESSING:
+  imputacion_categoricas: frequent
+  imputacion_numericas: median
+  agrupacion_raras:
+    tol: 0.01
+    replace_with: Rare
+  codificacion:
+    metodo: ordinal_ordered
+    no_vistas: -1
+  outliers:
+    capping_method: iqr
+    tail: both
+    fold: 1.5
+  transformacion:
+    metodo: yeo_johnson
+    umbral_sesgo: 0.75
+  escalado: standard
+OUTPUTS:
+  train: data/processed/train.csv
+  validation: data/processed/validation.csv
+  test: data/processed/test.csv
+  pipeline: models/preprocesamiento_pipeline.joblib
+BEST_MODEL:
+  nombre: GradientBoosting
+  hiperparametros:
+    learning_rate: 0.03
+    max_depth: 3
+  k_folds: 10
+  rmse_log_cv: 0.12560409007646076
+  rmse_real_val: 27614.56740252559
+  nrmse_rango_val: 0.038370139605476215
+  entrenado_con: 'train.csv completo (1460 casas: entrenamiento + validación)'
+  ruta: models/modelo_ganador.joblib
+INFERENCE:
+  pipeline: models/pipeline_inferencia.joblib
+  salida: SalePrice en dólares
+  predicciones_test: data/processed/predicciones_test.csv
+TOURNAMENT:
+  cv: reports/torneo_cv.csv
+  validacion: reports/torneo_validacion.csv
+  mejores_modelos: reports/torneo_mejores_modelos.yaml
