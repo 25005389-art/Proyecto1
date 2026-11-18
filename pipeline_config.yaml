@@ -112,3 +112,12 @@ TOURNAMENT:
   cv: reports/torneo_cv.csv
   validacion: reports/torneo_validacion.csv
   mejores_modelos: reports/torneo_mejores_modelos.yaml
+MLFLOW:
+  tracking_uri: sqlite:///mlflow.db
+  artifacts: mlruns
+  experimento: house-pricing
+  modelo_registrado: house-pricing-saleprice
+  aliases:
+  - champion
+  - challenger-1
+  - challenger-2
